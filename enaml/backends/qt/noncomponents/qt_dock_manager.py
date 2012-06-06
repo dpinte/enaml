@@ -73,7 +73,31 @@ class QtDockManager(AbstractTkDockManager):
                 qwindow = window.toolkit_widget
                 if qwindow is not None:
                     if not pane.initialized:
+                        # We have to make sure that the pane is not set 
+                        # to floating when it is setup. On OSX, certain
+                        # widgets in a dock pane are styled as mac mini
+                        # widgets. In this case the size hint reported 
+                        # by the widget is much smaller than normal. 
+                        # The problem with this is that there is a bug 
+                        # in Qt where the sizeHint of the pane's child
+                        # widgets are not refreshed when the pane is
+                        # dockes/undocked. Therefore the reported size
+                        # hint remains too small even when the pane is
+                        # redocked causing layout/drawing problems. This
+                        # workaround, while a hack, ensures that the 
+                        # widgets compute their normal size hint first.
+                        old = pane.floating
+                        pane.floating = False
                         pane.setup(qwindow)
+                        # This is kinda crappy at the moment where, if the
+                        # pane is floating, and the main window is not yet
+                        # visible (as in still being initialized) this
+                        # dock pane will be shown on the screen. Under the
+                        # covers, setFloating(True) causes the dock pane to
+                        # be shown. Need to investigate if we can get Qt 
+                        # to delay showing the floating panes until the
+                        # main window is visible.
+                        pane.floating = old
                     qarea = DOCK_AREA_MAP[pane.dock_area]
                     qwindow.addDockWidget(qarea, pane.toolkit_widget)
 
