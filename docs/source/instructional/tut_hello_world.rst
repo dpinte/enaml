@@ -14,7 +14,7 @@ similarities to Python, |Enaml| is a separate language.
 Here is our minimalist .enaml file describing a message-displaying GUI
 (:download:`download here <../../../examples/hello_world/hello_world_view.enaml>`):
 
-.. literalinclude:: ../../../examples/hello_world/hello_world_minimal.enaml
+.. literalinclude:: ../../../examples/hello_world/hello_world_view.enaml
     :language: python
 
 Use the special helper function ``enaml-run`` to run it from the command line
