@@ -72,7 +72,7 @@ def expand_constraints(component, constraints):
     
     Yields
     ------
-    constraints
+    constraints :
         The stream of expanded constraints.
 
     """
@@ -259,13 +259,13 @@ class DeferredConstraintsFunction(DeferredConstraints):
         ----------
         func : callable
             A callable object which will return the list of constraints.
-        
-        *args
+
+        *args :
             The arguments to pass to 'func'.
-        
-        **kwds
+
+        **kwds :
             The keyword arguments to pass to 'func'.
-        
+
         """
         super(DeferredConstraintsFunction, self).__init__(func, *args, **kwds)
         self.func = func
@@ -290,10 +290,10 @@ class AbutmentHelper(DeferredConstraints):
 
         Parameters
         ----------
-        *items
+        *items :
             The components to abut in the given orientation.
 
-        **metadata
+        **metadata :
             Metadata related to how the abutment should behave. The
             following options are currently supported:
                 
@@ -344,10 +344,10 @@ class AlignmentHelper(DeferredConstraints):
 
         Parameters
         ----------
-        *items
+        *items :
             The components to align on the given anchor.
 
-        **metadata
+        **metadata :
             Metadata related to how the abutment should behave. The
             following options are currently supported:
                 
@@ -406,10 +406,10 @@ class LinearBoxHelper(DeferredConstraints):
 
         Parameters
         ----------
-        *items
+        *items :
             The components to align on the given anchor.
 
-        **metadata
+        **metadata :
             Metadata related to how the abutment should behave. The
             following options are currently supported:
                 

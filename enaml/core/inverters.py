@@ -19,30 +19,34 @@ class AbstractInverter(object):
     list supplied by an expression into the inverse of that expression
     which applies the new value onto the expression. For example:
 
-    The expression:
-                    getattr(foo, 'bar')
-    
-    Becomes:
-                    setattr(foo, 'bar', value)
-    
-    Likewise, the expression:
-                    [spam.ham[0] for spam in foo][0].bar
+    The expression::
 
-    Would be translated into:
-                    [spam.ham[0] for spam in foo][0].bar = value
+        getattr(foo, 'bar')
 
-    The value, among other information, is provided by the expression 
-    by inserting the following names into the scope, which can be 
+    Becomes::
+
+        setattr(foo, 'bar', value)
+
+    Likewise, the expression::
+
+        [spam.ham[0] for spam in foo][0].bar
+
+    Would be translated into::
+
+        [spam.ham[0] for spam in foo][0].bar = value
+
+    The value, among other information, is provided by the expression
+    by inserting the following names into the scope, which can be
     retrieved with the LOAD_NAME op-code:
-        
-        _[expr] : The expression object
-        _[obj]  : The component object which triggered the change
-        _[name] : The attribute on the component which changed
-        _[old]  : The old value of the attribute.
-        _[new]  : The new value of the attribute which should be
-                  applied to the inverted expression.
-    
-    The generated expression should return True if it successfully 
+
+    _[expr] : The expression object
+    _[obj]  : The component object which triggered the change
+    _[name] : The attribute on the component which changed
+    _[old]  : The old value of the attribute.
+    _[new]  : The new value of the attribute which should be
+              applied to the inverted expression.
+
+    The generated expression should return True if it successfully
     completed the operation, False otherwise.
 
     """

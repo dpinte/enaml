@@ -26,10 +26,10 @@ class EnamlFactory(object):
         from Python code. This method will not be called by the Enaml
         runtime.
 
-        Paramters
-        ---------
-        **kwargs
-            The initial attribute values to apply to the component after 
+        Parameters
+        ----------
+        **kwargs :
+            The initial attribute values to apply to the component after
             it as been instantiated.
 
         Returns

@@ -22,9 +22,10 @@ class Signal(object):
     to the lifetime of the underlying object and not the method 
     itself.
 
-    Example
-    -------
-        
+    .. rubric:: Example
+
+    ::
+
         class Foo(object):
             bar = Signal()
 
