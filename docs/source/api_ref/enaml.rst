@@ -20,9 +20,6 @@ Enaml library.
 :mod:`guard` Module
 -------------------------
 
-.. inheritance-diagram:: enaml.guard
-    :parts: 1
-
 .. automodule:: enaml.guard
 
 :mod:`runner` Module
