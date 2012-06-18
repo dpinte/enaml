@@ -3,23 +3,6 @@ Developer's corner
 
 This section describes a set of guidelines for the developers of the Enaml.
 
-.. note:: The content of this section is currently under discussion and
-   the guidelines are only suggestions.
-
-
-.. GitHub Branches
-.. ---------------
-
-.. The following table provides a summary of the main developing branches and
-.. their purpose
-
-.. ================== ============================================
-.. Label              Description
-.. ================== ============================================
-.. ``master``         main stable branch
-.. ``develop``        developing branch (unstable)
-.. ================== ============================================
-
 Documentation
 -------------------------------------------------------------------------------
 
