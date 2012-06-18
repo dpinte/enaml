@@ -18,8 +18,8 @@ class BaseDTValidator(CoercingValidator):
         abbreviated : bool, optional
             Whether or not to use abbreviated time formatting. Defaults
             to True.
-        
-        **kwargs
+
+        **kwargs :
             The keyword arguments necessary to initialize an instance
             of CoercingValidator.
 

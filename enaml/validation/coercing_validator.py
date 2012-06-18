@@ -38,8 +38,8 @@ class CoercingValidator(AbstractValidator):
             If provided, a callable which accepts the context-dependent
             model value and returns a unicode string for display. If 
             not provided, a suitable default is used. Defaults to None.
-        
-        **kwargs
+
+        **kwargs :
             The keyword arguments necessary to initialize an instance
             of AbstractValidator.
 

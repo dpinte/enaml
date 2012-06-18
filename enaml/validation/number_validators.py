@@ -38,7 +38,7 @@ class NumberValidator(CoercingValidator):
             point number formatting. The default is -1 and indicates
             that implementation default precision should be used.
 
-        **kwargs
+        **kwargs :
             The keyword arguments necessary to initialize an instance
             of CoercingValidator.
 
