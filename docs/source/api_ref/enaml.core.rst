@@ -2,18 +2,30 @@ enaml.core
 ==========
 
 The :py:mod:`enaml.core` package contains all of the core functionality of the
-Enaml toolkit.
+|Enaml|.
+
+:mod:`base_component` Module
+----------------------------
+
+.. automodule:: enaml.core.base_component
+
+:mod: `constructor` Module
+
+.. automodule:: enaml.core.constructor
 
 
-:mod:`toolkit` Module
----------------------
+:mod:`enaml_ast` Module
+-----------------------
 
-.. automodule:: enaml.core.toolkit
+.. inheritance-diagram:: enaml.core.enaml_ast
+    :parts: 1
 
-:mod:`import_hooks` Module
---------------------------
+.. automodule:: enaml.core.enaml_ast
 
-.. automodule:: enaml.core.import_hooks
+:mod:`enaml_compiler` Module
+----------------------------
+
+.. automodule:: enaml.core.enaml_compiler
 
 
 :mod:`expressions` Module
@@ -27,8 +39,26 @@ Enaml toolkit.
     :special-members:
     :no-undoc-members:
 
+:mod:`factory` Module
+---------------------
+
+.. automodule:: enaml.core.factory
+
+
+:mod:`import_hooks` Module
+--------------------------
+
+.. automodule:: enaml.core.import_hooks
+
+
+:mod:`inverters` Module
+-----------------------
+
+.. automodule:: enaml.core.inverters
+
+
 :mod:`item_model` Module
----------------------------------
+------------------------
 
 .. currentmodule:: enaml.core.item_model
 
@@ -131,26 +161,14 @@ Enaml toolkit.
 
 .. autoclass:: ModelIndex
 
-
-parsing Package
-===============
-
-:mod:`enaml_ast` Module
------------------------
-
-.. inheritance-diagram:: enaml.core.enaml_ast
-    :parts: 1
-
-.. automodule:: enaml.core.enaml_ast
-
 :mod:`lexer` Module
 -------------------
 
 .. currentmodule:: enaml.core.lexer
 
-.. EnamlLexer has too many small methods that generate tokes but are consufed
+.. EnamlLexer has too many small methods that generate tokens but are consufed
    by autodoc as docstrings. So we only document the normal functions. A better
-   solution would be to use the skip-members hood of autodoc.
+   solution would be to use the skip-members hook of autodoc.
 
 .. autoclass:: EnamlLexer
     :no-members:
@@ -158,12 +176,45 @@ parsing Package
         make_token_stream, create_strings, annotate_indentation_state,
         synthesize_indentation_tokens, add_endmarker
 
+
+:mod:`monitors` Module
+----------------------
+
+.. automodule:: enaml.core.monitors
+
+
+:mod:`operators` Module
+-----------------------
+
+.. automodule:: enaml.core.operators
+
+
 :mod:`parser` Module
 --------------------
 
 .. automodule:: enaml.core.parser
 
-:mod:`enaml_compiler` Module
-----------------------------
 
-.. automodule:: enaml.core.enaml_compiler
+:mod:`signaling` Module
+-----------------------
+
+.. automodule:: enaml.core.signaling
+
+:mod:`toolkit` Module
+---------------------
+
+.. automodule:: enaml.core.toolkit
+
+:mod:`trait_types` Module
+-------------------------
+
+.. automodule:: enaml.core.trait_types
+
+
+Sub-packages
+-----------------------
+
+.. toctree::
+
+        enaml.core.parse_tab
+
