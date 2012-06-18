@@ -10,7 +10,7 @@ from ..utils import abstractclassmethod
 class AbstractTkImage(object):
     """ An abstract base class which represents a toolkit independent
     abstraction of a raster image.
-    
+
     """
     __metaclass__ = ABCMeta
 
@@ -33,7 +33,7 @@ class AbstractTkImage(object):
 
         """
         raise NotImplementedError
-    
+
     @abstractclassmethod
     def from_file(cls, path, format=''):
         """ Read in the image data from a file.
@@ -47,7 +47,7 @@ class AbstractTkImage(object):
             The image format of the data in the file. If not given,
             then the image format will be determined automatically
             if possible.
-        
+
         Returns
         -------
         results : AbstractTkImage
@@ -59,19 +59,13 @@ class AbstractTkImage(object):
     @abstractproperty
     def size(self):
         """ The size of the image as a (width, height) tuple.
-        
-        Returns
-        -------
-        result : (width, height)
-            The width, height size tuple of the image.
-
         """
         raise NotImplementedError
-    
+
     @abstractmethod
     def data(self):
         """ The data for the image as a bytearray of RGBA bytes.
-        
+
         Returns
         -------
         results : bytearray
@@ -83,21 +77,21 @@ class AbstractTkImage(object):
     @abstractmethod
     def scale(self, size, preserve_aspect_ratio=False):
         """ Create a new version of this image scaled to the given size.
-        
+
         Parameters
         ----------
         size : (width, height)
             The size of the scaled image.
-            
+
         Returns
         -------
         results : AbstractTkImage
             A new image of the proper scaled size.
-        
+
         preserve_aspect_ratio : bool, optional
             Whether to preserve the original aspect ratio of the image
             when scaling to the new size.
-            
+
         """
         raise NotImplementedError
 
