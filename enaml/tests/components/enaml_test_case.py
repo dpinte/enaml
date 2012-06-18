@@ -37,8 +37,7 @@ class EnamlTestCase(unittest.TestCase):
     toolkit = default_toolkit()
 
     def component_by_name(self, component, name):
-        """ Find an item in the view with a given name. The component
-        should have the name set its 'name' attribute.
+        """ Find and return an item in the view with a given name.
 
         Arguments
         ---------
@@ -47,17 +46,15 @@ class EnamlTestCase(unittest.TestCase):
 
         name : str
             The name of the enaml component to find in the tree.
-
-        Returns
-        -------
-            The corresponding component or None.
+            The component should have the name set in its 'name'
+            attribute.
 
         """
         return component.find_by_name(name)
 
     def parse_and_create(self, source, **kwargs):
         """ Parses and compiles the source. The source should have a
-        component defined with the name 'MainView'. 
+        component defined with the name 'MainView'.
 
         Arguments
         ---------

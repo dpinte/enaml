@@ -13,16 +13,18 @@ class TestLessLess(EnamlTestCase):
 
     To run these tests for a specific back-end it is required to have
     a functional implementation of the following wigdets:
-        - Window
-        - CheckBox
-        - Label
+
+    - Window
+    - CheckBox
+    - Label
+
 
     Abstract Methods
     ----------------
-    get_text(widget)
+    get_text(widget) :
         Returns the text from the tookit widget of a Label.
 
-    get_checked(widget)
+    get_checked(widget) :
         Return the checked status of a CheckBox.
 
     """
