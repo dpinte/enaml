@@ -21,8 +21,4 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_base_selection_model.WXBaseSelectionModel
-    :parts: 1
-
-.. autoclass:: enaml.backends.wx.wx_base_selection_model.WXBaseSelectionModel
+**Not Implemented**

@@ -21,8 +21,4 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_list_view.WXListView
-    :parts: 1
-
-.. autoclass:: enaml.backends.wx.wx_list_view.WXListView
+**Not Implemented**

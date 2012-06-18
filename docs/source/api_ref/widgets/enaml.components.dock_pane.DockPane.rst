@@ -21,8 +21,4 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_dock_pane.WXDockPane
-    :parts: 1
-
-.. autoclass:: enaml.backends.wx.wx_dock_pane.WXDockPane
+**Not implemented**

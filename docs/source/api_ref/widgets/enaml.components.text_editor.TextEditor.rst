@@ -21,8 +21,4 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_text_editor.WXTextEditor
-    :parts: 1
-
-.. autoclass:: enaml.backends.wx.wx_text_editor.WXTextEditor
+**Not Implemented**

@@ -21,8 +21,4 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_date_edit.WXDateEdit
-    :parts: 1
-
-.. autoclass:: enaml.backends.wx.wx_date_edit.WXDateEdit
+**Not Implemented**

@@ -21,8 +21,4 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_abstract_item_view.WXAbstractItemView
-    :parts: 1
-
-.. autoclass:: enaml.backends.wx.wx_abstract_item_view.WXAbstractItemView
+**Not Implemented**

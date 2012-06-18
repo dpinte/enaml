@@ -21,8 +21,5 @@ Qt
 Wx
 ^^
 
-.. inheritance-diagram::
-    enaml.backends.wx.wx_tree_view.WXTreeView
-    :parts: 1
 
-.. autoclass:: enaml.backends.wx.wx_tree_view.WXTreeView
+**Not Implemented**
