@@ -120,7 +120,7 @@ class ExecutionScope(object):
 
         Raises
         ------
-        KeyError
+        KeyError :
             If the name is not found, a KeyError is raise.
 
         """
@@ -535,8 +535,8 @@ class UpdateExpression(AbstractExpression):
             An iterable of concrete AbstractInverter subclasses which
             will invert the given expression code into a mirrored 
             operation which sets the value on the appropriate object.
-        
-        *args
+
+        *args :
             The arguments required to initialize an AbstractExpression
         
         """
@@ -681,7 +681,8 @@ class SubscriptionExpression(AbstractExpression):
             be used to generating the monitoring code for the
             expression.
         
-        *args
+
+        *args :
             The arguments required to initialize an AbstractExpression
         
         """
@@ -797,7 +798,8 @@ class DelegationExpression(SubscriptionExpression):
             will invert the given expression code into a mirrored 
             operation which sets the value on the appropriate object.
         
-        *args
+
+        *args :
             The arguments required to initialize a SubscriptionExpression
         
         """
