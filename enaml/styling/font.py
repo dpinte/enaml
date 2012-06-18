@@ -73,48 +73,47 @@ class Font(tuple):
     def from_string(cls, font_string):
         """ Convert a space separated string into a font object.
 
-        The schema for the string is as follows:
+        The schema for the string is as follows::
 
-        family [point_size | weight | style | family_hint | *options]
-            
-        The family must appear first, but the remaining items can 
-        appear in any order and can be any in quantity. Valid values 
-        for the items are shown below. All values are case insenstive. 
+            <family>  [<point_size> | <weight> | <style> | <family_hint> | <options> ]
+
+        The family must appear first, but the remaining items can
+        appear in any order and can be any in quantity. Valid values
+        for the items are shown below. All values are case insenstive.
         Invalid values are ignored. Duplicate items and items of the
         same class override any previous items of that class.
-            
-        family : a string
-        
-        point_size : an integer
-        
-        weight : one of ['light', 'normal', 'demi_bold', 'bold', 'black']
-        
-        style : one of ['italic', 'oblique']
 
-        family_hint : one of ['sans_serif', 'helvetica', 'serif', 'times', 
-                              'type_writer', 'courier', 'old_english', 
-                              'decorative', 'monospace', 'fantasy', 
-                              'cursive', 'system']
-        
-        *options : one or more of ['underline', 'strikethrough']
+        =============== =====================================================================================================
+        Property        Description
+        =============== =====================================================================================================
+        ``family``         The name of the font family
+        ``point_size``  The size in points ofthe font (integer).
+        ``weight``       one of  ``light``, ``normal``, ``demi_bold``, ``bold`` or ``black``
+        ``style``          ``italic`` or ``oblique``
+        ``family_hint`` one of ``sans_serif``, ``helvetica``, ``serif``, ``times``, ``type_writer``, ``courier``, ``old_english``, ``decorative``, ``monospace``, ``fantasy``, ``cursive`` or ``system``
+        ``options``     one or more of ``underline`` and ``strikethrough``
+        =============== =====================================================================================================
 
         Examples
         --------
-        'consolas 12 bold'
-        'times underline'
-        'menlo italic 18 underline demi_bold'
-        'inconsolata 14 black italic strikethrough monospace underline'
+
+        ::
+
+            consolas 12 bold
+            times underline
+            menlo italic 18 underline demi_bold
+            inconsolata 14 black italic strikethrough monospace underline
 
         """
         parts = [part.lower() for part in font_string.strip().split()]
         if not parts:
             raise ValueError('Invalid font string `%s`' % font_string)
-    
+
         kw = {}
         kw['family'] = parts[0]
 
         for part in parts[1:]:
-            
+
             try:
                 point_size = int(part)
             except ValueError:
@@ -122,7 +121,7 @@ class Font(tuple):
             else:
                 kw['point_size'] = point_size
                 continue
-            
+
             # 'normal' is used for both weight and style. It's the
             # default for both, so we just skip it since we can't
             # resolve the ambiguity (nor do we need to).
@@ -142,11 +141,11 @@ class Font(tuple):
 
         return Font(**kw)
 
-    def __new__(cls, family='', point_size=-1, weight=-1, style='normal', 
-        underline=False, strikethrough=False, family_hint='any', 
-        spacing_type='percentage', letter_spacing=100.0, word_spacing=0.0, 
+    def __new__(cls, family='', point_size=-1, weight=-1, style='normal',
+        underline=False, strikethrough=False, family_hint='any',
+        spacing_type='percentage', letter_spacing=100.0, word_spacing=0.0,
         stretch=100):
-         
+
         #----------------------------------------------------------------------
         # Argument Type Checking
         #----------------------------------------------------------------------
@@ -200,17 +199,17 @@ class Font(tuple):
         style = style.lower()
         if style not in _style_set:
             raise ValueError('style must be one of %s' % list(_style_set))
-        
+
         family_hint = family_hint.lower()
         if family_hint not in _family_hint_set:
             msg = 'family_hint must be one of %s' % list(_family_hint_set)
             raise ValueError(msg)
-        
+
         spacing_type = spacing_type.lower()
         if spacing_type not in _spacing_set:
             msg = 'spacing_type must be one of %s' % list(_spacing_set)
             raise ValueError(msg)
-        
+
         if isinstance(stretch, int):
             if not (1 <= stretch <= 4000):
                 raise ValueError('stretch must be 1 <= stretch <= 4000')
@@ -221,13 +220,13 @@ class Font(tuple):
                 raise ValueError(msg)
             else:
                 stretch = _stretch_map[stretch]
-        
+
         vals = (family, point_size, weight, style, underline, strikethrough,
                 family_hint, spacing_type, letter_spacing, word_spacing,
                 stretch)
-        
+
         return tuple.__new__(cls, vals)
-    
+
     def __repr__(self):
         templ = dedent("""\
         Font(
@@ -248,20 +247,20 @@ class Font(tuple):
 
     def __str__(self):
         return self.__repr__()
-            
+
     def __nonzero__(self):
         return self != self.default_font
-        
-    def clone(self, family=None, point_size=None, weight=None, style=None, 
-        underline=None, strikethrough=None, family_hint=None, 
-        spacing_type=None, letter_spacing=None, word_spacing=None, 
+
+    def clone(self, family=None, point_size=None, weight=None, style=None,
+        underline=None, strikethrough=None, family_hint=None,
+        spacing_type=None, letter_spacing=None, word_spacing=None,
         stretch=None):
 
         these = (family, point_size, weight, style, underline,
                  strikethrough, family_hint, spacing_type, letter_spacing,
                  word_spacing, stretch)
 
-        vals = ((this if this is not None else other) 
+        vals = ((this if this is not None else other)
                 for (this, other) in zip(these, self))
 
         return Font(*vals)
@@ -269,57 +268,57 @@ class Font(tuple):
     @property
     def family(self):
         return self[0]
-    
+
     @property
     def point_size(self):
         return self[1]
-    
+
     @property
     def weight(self):
         return self[2]
-    
+
     @property
     def style(self):
         return self[3]
-    
+
     @property
     def underline(self):
         return self[4]
-    
+
     @property
     def strikethrough(self):
         return self[5]
-    
+
     @property
     def family_hint(self):
         return self[6]
-    
+
     @property
     def spacing_type(self):
         return self[7]
-    
+
     @property
     def letter_spacing(self):
         return self[8]
-    
+
     @property
     def word_spacing(self):
         return self[9]
-    
+
     @property
     def stretch(self):
         return self[10]
-             
+
 
 # Create an instance of a default font for comparison purposes
 Font.default_font = Font()
 
 
 class FontTrait(StyleTrait):
-    
+
     def create_default(self, obj, name):
         return Font()
-    
+
     def convert(self, obj, name, value):
         if isinstance(value, basestring):
             try:
