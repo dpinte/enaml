@@ -15,7 +15,7 @@ from .byteplay import (
 
 # Increment this number whenever the compiler changes the code which it
 # generates. This number is used by the import hooks to know which version
-# of a .enamlc file is valid for the Enaml compiler version in use. If 
+# of a .enamlc file is valid for the Enaml compiler version in use. If
 # this number is not incremented on change, it may result in .enamlc
 # files which fail on import.
 #
@@ -23,9 +23,9 @@ from .byteplay import (
 # ---------------
 # 1 : Initial compiler version - 2 February 2012
 # 2 : Update line number handling - 26 March 2012
-#     When compiling code objects with mode='eval', Python ignores the 
-#     line number specified by the ast. The workaround is to compile the 
-#     code object, then make a new copy of it with the proper firstlineno 
+#     When compiling code objects with mode='eval', Python ignores the
+#     line number specified by the ast. The workaround is to compile the
+#     code object, then make a new copy of it with the proper firstlineno
 #     set via the types.CodeType constructor.
 COMPILER_VERSION = 2
 
@@ -58,7 +58,7 @@ def update_firstlineno(code, firstlineno):
     return types.CodeType(
         code.co_argcount, code.co_nlocals, code.co_stacksize, code.co_flags,
         code.co_code, code.co_consts, code.co_names, code.co_varnames,
-        code.co_filename, code.co_name, firstlineno, code.co_lnotab, 
+        code.co_filename, code.co_name, firstlineno, code.co_lnotab,
         code.co_freevars, code.co_cellvars,
     )
 
@@ -83,7 +83,7 @@ class _NodeVisitor(object):
         method(node)
 
     def default_visit(self, node):
-        """ The default visitor method. Raises an error since there 
+        """ The default visitor method. Raises an error since there
         should not be any unhandled nodes.
 
         """
@@ -99,7 +99,7 @@ class DeclarationCompiler(_NodeVisitor):
     """
     @classmethod
     def compile(cls, node, filename):
-        """ Compiles the given Declaration node into a byteplay code 
+        """ Compiles the given Declaration node into a byteplay code
         object.
 
         Given this sample declaration in Enaml::
@@ -110,6 +110,7 @@ class DeclarationCompiler(_NodeVisitor):
                 PushButton:
                     id: btn
                     text = 'clickme'
+
         We generate bytecode that would correspond to a Python function that
         looks similar to this::
 
@@ -134,7 +135,7 @@ class DeclarationCompiler(_NodeVisitor):
         compiler.visit(node)
         code_ops = compiler.code_ops
         code = Code(
-            code_ops, [], ['identifiers', 'toolkit'], False, False, True, 
+            code_ops, [], ['identifiers', 'toolkit'], False, False, True,
             node.name, filename, node.lineno, node.doc,
         )
         return code
@@ -196,11 +197,11 @@ class DeclarationCompiler(_NodeVisitor):
                 (LOAD_CONST, node.identifier),
                 (STORE_SUBSCR, None),
             ])
-        
+
         visit = self.visit
         for item in node.body:
             visit(item)
-        
+
         extend_ops([
             # return foo
             (LOAD_FAST, name),
@@ -270,7 +271,7 @@ class DeclarationCompiler(_NodeVisitor):
         else:
             # When compiling in 'eval' mode, the line number in the ast
             # gets ignored. We need to make new code object from this
-            # on with the proper starting line number so that 
+            # on with the proper starting line number so that
             # exceptions are properly reported.
             expr_code = compile(py_ast, fn, mode='eval')
             expr_code = update_firstlineno(expr_code, py_ast.lineno)
@@ -291,10 +292,10 @@ class DeclarationCompiler(_NodeVisitor):
         ])
 
     def visit_Instantiation(self, node):
-        """ Create the bytecode ops for a component instantiation. This 
+        """ Create the bytecode ops for a component instantiation. This
         visitor handles calling another derived component and storing
         its identifier, if given.
-        
+
         """
         extend_ops = self.extend_ops
         name = self.name_gen.next()
@@ -318,7 +319,7 @@ class DeclarationCompiler(_NodeVisitor):
             (CALL_FUNCTION, 0x0002),
             (STORE_FAST, name),
         ])
-        
+
         if node.identifier:
             extend_ops([
                 (LOAD_FAST, name),
@@ -330,7 +331,7 @@ class DeclarationCompiler(_NodeVisitor):
         visit = self.visit
         for item in node.body:
             visit(item)
-        
+
         self.pop_name()
         extend_ops([
             # foo.add_subcomponent(button)
@@ -347,9 +348,9 @@ class DeclarationCompiler(_NodeVisitor):
 #------------------------------------------------------------------------------
 class EnamlCompiler(_NodeVisitor):
     """ A compiler that will compile an enaml module ast node.
-    
+
     The entry point is the `compile` classmethod which will compile
-    the ast into an appropriate python object and place the results 
+    the ast into an appropriate python object and place the results
     in the provided module dictionary.
 
     """
@@ -361,11 +362,11 @@ class EnamlCompiler(_NodeVisitor):
         ----------
         module_ast : Instance(enaml_ast.Module)
             The enaml module ast node that should be compiled.
-        
+
         module_dict : dict
             The dictionary of the Python module into which we are
             compiling the enaml code.
-        
+
         """
         compiler = cls(filename)
         compiler.visit(module_ast)
@@ -387,7 +388,7 @@ class EnamlCompiler(_NodeVisitor):
             end_code = compile(end, filename, mode='exec')
             # Skip the SetLineo and ReturnValue codes
             extend_ops(Code.from_code(end_code).code[1:-2])
-        
+
         # Add in the final return value ops
         extend_ops([
             (LOAD_CONST, None),
@@ -411,7 +412,7 @@ class EnamlCompiler(_NodeVisitor):
         """
         for item in node.body:
             self.visit(item)
-    
+
     def visit_Python(self, node):
         """ A visitor which adds a chunk of raw Python into the module.
 
@@ -419,7 +420,7 @@ class EnamlCompiler(_NodeVisitor):
         # This compiles the given Python ast into a Python code object
         # then disassembles it into a byteplay code object. This allows
         # us to interleave the instructions with those generated for
-        # the rest of the module and then compile a single unified 
+        # the rest of the module and then compile a single unified
         # code object.
         py_code = compile(node.py_ast, self.filename, mode='exec')
         bpc = Code.from_code(py_code)
