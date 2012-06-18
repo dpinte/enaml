@@ -231,7 +231,7 @@ conventions:
 
     - When documenting classes with Traits the sphinx directive
       ``.. autoattribute::`` does not work. To document single attributes
-      use the (undocumented) ``.. autoattributeinstance::``  directive
+      use the (undocumented) ``.. autoinstanceattribute::``  directive
       instead.
     - The ``..autoclass::`` directive works fine as long as specific
       members are not specified in the ``:members:`` context parameter.
