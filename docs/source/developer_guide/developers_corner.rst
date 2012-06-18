@@ -1,95 +1,8 @@
 Developer's corner
-===============================================================================
+==================
 
-This section describes a set of guidelines for the developers of the Enaml.
+This section describes a set of guidelines for the developers of |Enaml|.
 
-Documentation
--------------------------------------------------------------------------------
-
-Sphinx Configuration
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-A Sphinx extension, found in :py:mod:`enamldoc.sphinx_ext` lets Sphinx
-recognize and document |Enaml| objects. 
-
-Sphinx Directives and Roles
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. rst:directive:: enaml:enaml_decl
-
-    For |Enaml| declarations. It will format similarly to a function, but with
-    the base object in the place arguments.
-
-..  enaml:enaml_decl:: Foo(Bar)
-
-..  enaml:enaml_decl:: enaml.stdlib.fields.RandomField 
-
-.. rst:directive:: autoenaml_decl:: import.hierarchy.enaml_declaration
-
-    Automatically generate the object description from an |Enaml| file. Specify
-    the object to document as though you were importing it.
-
-..  autoenaml_decl:: enaml.stdlib.fields.ErrorField
-
-.. rst:directive:: enaml:enaml_defn
-
-    For |Enaml| **enamldef** statements. Arguments display as with functions.
-
-.. rst:directive:: autoenaml_defn:: import.hierarchy.enaml_defn
-
-    Automatically generate the object description from an |Enaml| file. Specify
-    the object to describe as though you were importing it.
-
-.. rst:directive:: automodule:: 
-
-    automodule works for |Enaml| files as it does for python modules. No
-    special syntax is necessary.
-
-.. #rst:role:: enaml_comp
-
-..    Use the :rst:role:`enaml_comp` role to create a cross-reference to a
-..    previously described ``enaml_decl`` or ``enaml_defn``
-
-Including the Sphinx extension ``refactor_doc`` allows use of formatted
-docstrings as described below.
-
-Documentation
--------------------------------------------------------------------------------
-
-Sphinx Configuration
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-A Sphinx extension ``enamldoc`` lets Sphinx recognize and document |Enaml|
-objects.
-
-.. automodule:: enamldoc.sphinx_ext
-    :members:
-
-.. inheritance-diagram::
-    enamldoc.sphinx_ext.EnamlComponentDocumenter
-    enamldoc.sphinx_ext.EnamlDeclarationDocumenter
-    enamldoc.sphinx_ext.EnamlDomain
-
-
-Including the Sphinx extension ``refactordoc`` allows use of formatted
-docstrings as described below.
-
-Sphinx Source
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-For Sphinx source, please use 4 spaces for indention and a UTF-8 encoding.
-The line length is preferred to be between 72-74 characters.
-
-Due to the magic under the hood of the traits objects, automatically
-extracting documentation from the source with the standard autodoc tools
-is a little tricky. Enaml's Sphinx source should therefore use the following
-conventions:
-
-    - When documenting classes with Traits the sphinx directive
-      ``.. autoattribute::`` does not work. To document single attributes
-      use the (undocumented) ``.. autoattributeinstance::``  directive
-      instead.
-    - The ``..autoclass::`` directive works fine as long as specific
-      members are not specified in the ``:members:`` context parameter.
 
 Source Code
 -----------
@@ -110,7 +23,7 @@ can be used as a template
 
 Docstrings
 ++++++++++
- 
+
 The current documentation uses the autodoc extension of the Sphinx
 distribution. The autodoc parsing is also extended to convert heading-based
 docstring descriptions to standard reStructedText role directives.
@@ -198,7 +111,7 @@ the following:
 
         <heading>
         ---------
-            <description>
+        <description>
 
       The last form is useful when a paragraph is more appropriate than a
       an item list.
@@ -217,42 +130,108 @@ Example
 
 ::
 
-        """Extract the fields from the docstring
+    """Extract the fields from the docstring
 
-        Parse the fields into tuples of name, type and description in a
-        list of strings. The strings are also removed from the list.
+    Parse the fields into tuples of name, type and description in a
+    list of strings. The strings are also removed from the list.
 
-        Arguments
-        ---------
-        indent : str, optional
-            the indent argument is used to make sure that only the lines
-            with the same indent are considered when checking for a
-            field header line. The value is used to define the field
-            checking function.
+    Arguments
+    ---------
+    indent : str, optional
+        the indent argument is used to make sure that only the lines
+        with the same indent are considered when checking for a
+        field header line. The value is used to define the field
+        checking function.
 
-        field_check : function
-            Optional function to use for checking if the next line is a
-            field. The signature of the function is ``foo(line)`` and it
-            should return ``True`` if the line contains a valid field
-            The default function is checking for fields of the following
-            formats::
+    field_check : function
+        Optional function to use for checking if the next line is a
+        field. The signature of the function is ``foo(line)`` and it
+        should return ``True`` if the line contains a valid field
+        The default function is checking for fields of the following
+        formats::
 
-                <name> : <type>
+            <name> : <type>
 
-            or::
+        or::
 
-                <name> :
+            <name> :
 
-            Where the name has to be one word.
+        Where the name has to be one word.
 
-        Returns
-        -------
-        parameters : list of tuples
-            list of parsed parameter tuples as returned from the
-            :meth:`~BaseDocstring.parse_field` method.
+    Returns
+    -------
+    parameters : list of tuples
+        list of parsed parameter tuples as returned from the
+        :meth:`~BaseDocstring.parse_field` method.
 
-        """
+    """
 
-.. currentmodule:: refactor_doc
+.. automethod:: refactordoc.base_doc.BaseDoc.extract_fields
 
-.. automethod:: FunctionDocstring.extract_fields
+Documentation
+-------------
+
+Sphinx Configuration
+++++++++++++++++++++
+
+A Sphinx extension, found in :py:mod:`enamldoc.sphinx_ext` lets Sphinx
+recognize and document |Enaml| objects.
+
+Sphinx Directives and Roles
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. rst:directive:: enaml:enaml_decl
+
+    For |Enaml| declarations. It will format similarly to a function, but with
+    the base object in the place of arguments.
+
+
+..  enaml:enaml_decl:: Foo(Bar)
+
+..  enaml:enaml_decl:: enaml.stdlib.fields.RandomField
+    :noindex:
+
+.. rst:directive:: autoenaml_decl:: import.hierarchy.enaml_declaration
+
+    Automatically generate the object description from an |Enaml| file. Specify
+    the object to document as though you were importing it.
+
+..  autoenaml_decl:: enaml.stdlib.fields.ErrorField
+    :noindex:
+
+.. rst:directive:: enaml:enaml_defn
+
+    For |Enaml| **enamldef** statements. Arguments display as with functions.
+
+.. rst:directive:: autoenaml_defn:: import.hierarchy.enaml_defn
+
+    Automatically generate the object description from an |Enaml| file. Specify
+    the object to describe as though you were importing it.
+
+.. rst:directive:: automodule::
+
+    automodule works for |Enaml| files as it does for python modules. No
+    special syntax is necessary.
+
+
+Including the Sphinx extension ``refactordoc`` allows use of formatted
+docstrings as described below.
+
+
+Sphinx Source
++++++++++++++
+
+For Sphinx source, please use 4 spaces for indention and a UTF-8 encoding.
+The line length is preferred to be between 72-74 characters.
+
+Due to the magic under the hood of the traits objects, automatically
+extracting documentation from the source with the standard autodoc tools
+is a little tricky. Enaml's Sphinx source should therefore use the following
+conventions:
+
+    - When documenting classes with Traits the sphinx directive
+      ``.. autoattribute::`` does not work. To document single attributes
+      use the (undocumented) ``.. autoattributeinstance::``  directive
+      instead.
+    - The ``..autoclass::`` directive works fine as long as specific
+      members are not specified in the ``:members:`` context parameter.
