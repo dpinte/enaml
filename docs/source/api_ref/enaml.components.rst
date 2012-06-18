@@ -1,5 +1,7 @@
-Widgets
-===============================================================================
+Built-in Widgets
+================
+
+.. _built-ins-ref:
 
 An Enaml widget is a toolkit-independent abstraction.
 Each GUI toolkit that Enaml supports is a set of widgets that
