@@ -47,6 +47,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'refactordoc',
     'enamldoc.sphinx_ext',
+    'trait_documenter',
     ]
 
 # Add any paths that contain templates here, relative to this directory.
