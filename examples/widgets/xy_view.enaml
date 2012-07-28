@@ -26,14 +26,6 @@ enamldef Main(Window):
             scale_to_fit = False
         GroupBox:
             id: controls
-            title = 'controls'
-            Label:
-                text = 'Number of points'
-            Slider:
-                id: n_points
-                value := model.N
-                minimum = 50
-                maximum = 500
             Label:
                 text << 'Angular frequency %4.1f' % model.omega
             Slider:
