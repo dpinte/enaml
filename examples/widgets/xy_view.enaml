@@ -8,7 +8,7 @@ An demonstration of how to use an ImageView component to display
 an image.
 
 """
-from enaml.widgets import Window, Container, ImageView, GroupBox, Label, Slider
+from enaml.widgets import Window, Container, ImageView, GroupBox, Label, Slider, Slider
 from enaml.layout import hbox, vbox, spacer, align
 
 enamldef Main(Window):
@@ -32,5 +32,12 @@ enamldef Main(Window):
             Slider:
                 id: n_points
                 value := model.N
-                minimum = 5
-                maximum = 200
+                minimum = 50
+                maximum = 500
+            Label:
+                text << 'Angular frequency %4.1f' % model.omega
+            Slider:
+                id: omega
+                value := model.omega
+                minimum = 1
+                maximum = 20
