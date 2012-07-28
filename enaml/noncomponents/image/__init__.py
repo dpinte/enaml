@@ -6,3 +6,4 @@
 from image_from_file import ImageFromFile
 from image_from_pil import ImageFromPIL
 from image_from_array import ImageFromArray
+from image_from_xy import ImageFromXY
