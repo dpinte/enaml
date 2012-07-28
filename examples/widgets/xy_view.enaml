@@ -8,22 +8,29 @@ An demonstration of how to use an ImageView component to display
 an image.
 
 """
-import os
-import numpy as np
-
-from enaml.widgets import Window, Container, ImageView, CheckBox
-from enaml.noncomponents.image import ImageFromXY
-
-N = 100
-x = np.linspace(0, 4*np.pi, N)
-y = np.sin(x)
+from enaml.widgets import Window, Container, ImageView, GroupBox, Label, Slider
+from enaml.layout import hbox, vbox, spacer, align
 
 enamldef Main(Window):
+    attr model
     title = 'XY View'
     Container:
+        id: container
+        constraints = [
+            hbox(plot, controls),
+        ]
         ImageView:
-            id: image0
-            image = ImageFromXY(x, y)
+            id: plot
+            image << model.image
             bgcolor = 'gray'
             scale_to_fit = False
-
+        GroupBox:
+            id: controls
+            title = 'controls'
+            Label:
+                text = 'Number of points'
+            Slider:
+                id: n_points
+                value := model.N
+                minimum = 5
+                maximum = 200

@@ -1,0 +1,29 @@
+#------------------------------------------------------------------------------
+#  Copyright (c) 2011, Enthought, Inc.
+#  All rights reserved.
+#------------------------------------------------------------------------------
+""" ImageView example.
+
+An demonstration of how to use an ImageView component to display 
+an image.
+
+"""
+import os
+import numpy as np
+
+from enaml.widgets import Window, Container, ImageView, CheckBox
+from enaml.noncomponents.image import ImageFromXY
+
+N = 100
+x = np.linspace(0, 4*np.pi, N)
+y = np.sin(x)
+
+enamldef Main(Window):
+    title = 'XY View'
+    Container:
+        ImageView:
+            id: image0
+            image = ImageFromXY(x, y)
+            bgcolor = 'gray'
+            scale_to_fit = False
+

@@ -6,7 +6,7 @@ from base64 import b64encode, b64decode
 from abstract_image import AbstractImage
 import matplotlib.pyplot as plt
 from io import BytesIO
-
+import traceback
 
 class ImageFromXY(AbstractImage):
     """ A subclass of AbstractImage that generates a simple x-y line plot
@@ -14,8 +14,13 @@ class ImageFromXY(AbstractImage):
 
     """
     def __init__(self, x, y):
-        """ store the x and y data
+        """ Just need to update internal x and y
 
+        """
+        self.update(x, y)
+
+    def update(self, x, y):
+        """ change the internal x and y data
         """
         self._x = x
         self._y = y
@@ -24,6 +29,7 @@ class ImageFromXY(AbstractImage):
         """ Return the image as a JSON-serializable dict
 
         """
+        plt.clf()
         plt.plot(self._x, self._y)
         plt.xlim((min(self._x), max(self._x)))
         iobuffer = BytesIO()
