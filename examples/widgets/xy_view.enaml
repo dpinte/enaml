@@ -22,7 +22,7 @@ enamldef Main(Window):
         ImageView:
             id: plot
             image << model.image
-            bgcolor = 'gray'
+            bgcolor = 'white'
             scale_to_fit = False
         GroupBox:
             id: controls
@@ -41,3 +41,10 @@ enamldef Main(Window):
                 value := model.omega
                 minimum = 1
                 maximum = 20
+            Label:
+                text << 'DPI %d' % model.dpi
+            Slider:
+                id: dpi
+                value := model.dpi
+                minimum = 10
+                maximum = 200

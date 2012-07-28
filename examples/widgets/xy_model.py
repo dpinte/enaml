@@ -15,16 +15,17 @@ class XYModel(HasTraits):
     y = Array()
     # TODO: the image should really be in a plot model, not the data model
     image = Instance(ImageFromXY)
+    dpi = Int(100)
 
     def __init__(self):
         super(XYModel, self).__init__()
         self.update_image()
 
-    @on_trait_change('N, xmax, omega')
+    @on_trait_change('N, xmax, omega, dpi')
     def update_image(self):
         self.x = np.linspace(0, self.xmax, self.N)
         self.y = np.sin(2 * np.pi * self.omega * self.x)
-        self.image = ImageFromXY(self.x, self.y)
+        self.image = ImageFromXY(self.x, self.y, self.dpi)
 
 
 def start_ipython(model):
