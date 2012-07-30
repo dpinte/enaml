@@ -18,11 +18,11 @@ class ImageFromXY(AbstractImage):
     _linecolor = 'k'
     _linestyle = '-'
 
-    def __init__(self, x, y, dpi=None, linecolor=None, linestyle=None):
+    def __init__(self, x, y, *args, **kwargs):
         """ Just need to update internal x and y
 
         """
-        self.update(x, y, dpi, linecolor, linestyle)
+        self.update(x, y, *args, **kwargs)
 
     def update(self, x, y, dpi=None, linecolor=None, linestyle=None):
         """ change the internal x and y data
