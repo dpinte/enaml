@@ -26,31 +26,40 @@ enamldef Main(Window):
             scale_to_fit = False
         GroupBox:
             id: controls
-            Label:
-                text << 'Angular frequency %4.1f' % model.omega
-            Slider:
-                id: omega
-                value := model.omega
-                minimum = 1
-                maximum = 20
-            Label:
-                text << 'DPI %d' % model.dpi
-            Slider:
-                id: dpi
-                value := model.dpi
-                minimum = 10
-                maximum = 200
-            Label:
-                text = 'line type'
-            ComboBox:
-                id: line
-                items << model.linetype_choices
-                index := model.linetype_idx
-            Label:
-                text = 'line color'
-            ComboBox:
-                id: color
-                items << model.linecolor_choices
-                index := model.linecolor_idx
-                
-                
+            GroupBox:
+                id: data
+                Label:
+                    text = 'Function'
+                ComboBox:
+                    id: fn
+                    items << model.function_choices
+                    index := model.function_idx
+                Label:
+                    text << 'Angular frequency %4.1f' % model.omega
+                Slider:
+                    id: omega
+                    value := model.omega
+                    minimum = 1
+                    maximum = 20
+            GroupBox:
+                id: plotting
+                Label:
+                    text << 'DPI %d' % model.dpi
+                Slider:
+                    id: dpi
+                    value := model.dpi
+                    minimum = 10
+                    maximum = 200
+                Label:
+                    text = 'line type'
+                ComboBox:
+                    id: line
+                    items << model.linetype_choices
+                    index := model.linetype_idx
+                Label:
+                    text = 'line color'
+                ComboBox:
+                    id: color
+                    items << model.linecolor_choices
+                    index := model.linecolor_idx
+

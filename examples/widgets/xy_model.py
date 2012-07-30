@@ -11,6 +11,7 @@ from IPython.frontend.terminal.embed import InteractiveShellEmbed
 class XYModel(HasTraits):
     N = Int(250)
     omega = Float(4)
+    xmin = Float(-1)
     xmax = Float(1)
     x = Array()
     y = Array()
@@ -21,19 +22,31 @@ class XYModel(HasTraits):
     linetype_idx = Int(0)
     linecolor_choices = List(Str)
     linecolor_idx = Int(1)
+    function_choices = List(Str)
+    function_idx = Int(0)
 
     def __init__(self):
         super(XYModel, self).__init__()
         self.update_image()
 
-    @on_trait_change('N, xmax, omega, dpi, linetype_idx, linecolor_idx')
+    @on_trait_change('N, xmax, omega, function_idx, dpi, linetype_idx, linecolor_idx')
     def update_image(self):
-        self.x = np.linspace(0, self.xmax, self.N)
-        self.y = np.sin(2 * np.pi * self.omega * self.x)
+        self.x = np.linspace(self.xmin, self.xmax, self.N)
+        f = self.function()
+        self.y = f(2 * np.pi * self.omega * self.x)
         linecolor = self.linecolor_choices[self.linecolor_idx]
         linestyle = self.linetype_choices[self.linetype_idx]
         self.image = ImageFromXY(self.x, self.y, dpi=self.dpi,
                                  linecolor=linecolor, linestyle=linestyle)
+
+    def function(self):
+        fname = self.function_choices[self.function_idx]
+        if fname == 'sin':
+            return np.sin
+        if fname == 'cos':
+            return np.cos
+        if fname == 'sinc':
+            return np.sinc
 
     def _linetype_choices_default(self):
         # TODO: make these human readable instead of matplotlib standard
@@ -41,6 +54,10 @@ class XYModel(HasTraits):
 
     def _linecolor_choices_default(self):
         return ['k', 'b', 'g', 'r']
+
+    def _function_choices_default(self):
+        return ['sin', 'cos', 'sinc']
+
 
 def start_ipython(model):
     shell = InteractiveShellEmbed()
