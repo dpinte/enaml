@@ -15,29 +15,34 @@ class ImageFromXY(AbstractImage):
     """
     _dpi = 100
     _facecolor = (0.94, 0.94, 0.94)
+    _linecolor = 'k'
+    _linestyle = '-'
 
-    def __init__(self, x, y, dpi=None):
+    def __init__(self, x, y, dpi=None, linecolor=None, linestyle=None):
         """ Just need to update internal x and y
 
         """
-        if dpi is not None:
-            self._dpi = dpi
-        self.update(x, y)
+        self.update(x, y, dpi, linecolor, linestyle)
 
-    def update(self, x, y, dpi=None):
+    def update(self, x, y, dpi=None, linecolor=None, linestyle=None):
         """ change the internal x and y data
         """
         self._x = x
         self._y = y
         if dpi is not None:
             self._dpi = dpi
+        if linecolor is not None:
+            self._linecolor = linecolor
+        if linestyle is not None:
+            self._linestyle = linestyle
 
     def as_dict(self):
         """ Return the image as a JSON-serializable dict
 
         """
         plt.clf()
-        plt.plot(self._x, self._y)
+        style = self._linecolor + self._linestyle
+        plt.plot(self._x, self._y, style)
         plt.xlim((min(self._x), max(self._x)))
         iobuffer = BytesIO()
         plt.savefig(iobuffer, bbox_inches='tight', dpi=self._dpi, facecolor=self._facecolor)

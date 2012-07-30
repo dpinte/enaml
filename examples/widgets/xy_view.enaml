@@ -8,7 +8,7 @@ An demonstration of how to use an ImageView component to display
 an image.
 
 """
-from enaml.widgets import Window, Container, ImageView, GroupBox, Label, Slider, Slider
+from enaml.widgets import Window, Container, ImageView, GroupBox, Label, Slider, Slider, ComboBox
 from enaml.layout import hbox, vbox, spacer, align
 
 enamldef Main(Window):
@@ -40,3 +40,17 @@ enamldef Main(Window):
                 value := model.dpi
                 minimum = 10
                 maximum = 200
+            Label:
+                text = 'line type'
+            ComboBox:
+                id: line
+                items << model.linetype_choices
+                index := model.linetype_idx
+            Label:
+                text = 'line color'
+            ComboBox:
+                id: color
+                items << model.linecolor_choices
+                index := model.linecolor_idx
+                
+                
