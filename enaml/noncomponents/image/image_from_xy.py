@@ -14,6 +14,7 @@ class ImageFromXY(AbstractImage):
 
     """
     _dpi = 100
+    _facecolor = (0.94, 0.94, 0.94)
 
     def __init__(self, x, y, dpi=None):
         """ Just need to update internal x and y
@@ -39,7 +40,7 @@ class ImageFromXY(AbstractImage):
         plt.plot(self._x, self._y)
         plt.xlim((min(self._x), max(self._x)))
         iobuffer = BytesIO()
-        plt.savefig(iobuffer, bbox_inches='tight', dpi=self._dpi)
+        plt.savefig(iobuffer, bbox_inches='tight', dpi=self._dpi, facecolor=self._facecolor)
         image_dict = {
             'data' : b64encode(iobuffer.getvalue()),
             'format' : 'raw_file',
