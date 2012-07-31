@@ -31,7 +31,8 @@ class XYModel(HasTraits):
     linetype_idx = Int(0)
     linecolor_choices = List(Str)
     linecolor_idx = Int(0)
-    function_choices = List(Str)
+    # choices can be any standard numpy functions
+    function_choices = List(['sin', 'cos', 'sinc', 'exp'])
     function_idx = Int(0)
     linetype_dict = {'solid' : '-',
                      'dashed' : '--',
@@ -58,12 +59,10 @@ class XYModel(HasTraits):
 
     def function(self):
         fname = self.function_choices[self.function_idx]
-        if fname == 'sin':
-            return np.sin
-        if fname == 'cos':
-            return np.cos
-        if fname == 'sinc':
-            return np.sinc
+        try:
+            return eval('np.' + fname)
+        except AttributeError:
+            return None
 
     def linetype(self):
         return self.linetype_dict[self.linetype_choices[self.linetype_idx]]
@@ -76,9 +75,6 @@ class XYModel(HasTraits):
 
     def _linecolor_choices_default(self):
         return self.linecolor_dict.keys()
-
-    def _function_choices_default(self):
-        return ['sin', 'cos', 'sinc']
 
 
 def main():
