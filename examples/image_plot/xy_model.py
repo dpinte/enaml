@@ -1,11 +1,20 @@
-import threading
+#------------------------------------------------------------------------------
+#  Copyright (c) 2012, Enthought, Inc.
+#  All rights reserved.
+#------------------------------------------------------------------------------
+""" ImageFromXY interactive example
+
+An interactive demo to generate X-Y plots with matplotlib and send
+them as images.
+
+"""
+
 import numpy as np
 from traits.api import (HasTraits, Array, Int, Float, Instance,
-                        on_trait_change, List, Enum, Str)
+                        on_trait_change, List, Str)
 import enaml
 from enaml.qt.qt_local_application import QtLocalApplication
 from enaml.noncomponents.image import ImageFromXY
-from IPython.frontend.terminal.embed import InteractiveShellEmbed
 
 
 class XYModel(HasTraits):
@@ -59,10 +68,6 @@ class XYModel(HasTraits):
         return ['sin', 'cos', 'sinc']
 
 
-def start_ipython(model):
-    shell = InteractiveShellEmbed()
-    shell()
-
 def main():
     with enaml.imports():
         from xy_view import Main
@@ -70,8 +75,6 @@ def main():
     view = Main(model=model)
     app = QtLocalApplication()
     app.serve('main', view)
-    #thread = threading.Thread(target=start_ipython, args=(model,))
-    #thread.start()
     app.mainloop()
 
 if __name__ == '__main__':

@@ -1,11 +1,8 @@
 #------------------------------------------------------------------------------
-#  Copyright (c) 2011, Enthought, Inc.
+#  Copyright (c) 2012, Enthought, Inc.
 #  All rights reserved.
 #------------------------------------------------------------------------------
-""" ImageView example.
-
-An demonstration of how to use an ImageView component to display 
-an image.
+""" The enaml component of interactive X-Y plot demo.  See xy_model.py
 
 """
 from enaml.widgets import Window, Container, ImageView, GroupBox, Label, Slider, Slider, ComboBox
