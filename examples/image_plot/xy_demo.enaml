@@ -17,8 +17,7 @@ y = np.sin(x)
 
 enamldef Main(Window):
     title = 'XY View'
-    Container:
-        ImageView:
-            id: image0
-            image = ImageFromXY(x, y)
+    ImageView:
+        id: image
+        image = ImageFromXY(x, y)
 
