@@ -48,7 +48,7 @@ enamldef Main(Window):
                     minimum = 10
                     maximum = 200
                 Label:
-                    text = 'line type'
+                    text = 'line type / symbol'
                 ComboBox:
                     id: line
                     items << model.linetype_choices

@@ -30,9 +30,18 @@ class XYModel(HasTraits):
     linetype_choices = List(Str)
     linetype_idx = Int(0)
     linecolor_choices = List(Str)
-    linecolor_idx = Int(1)
+    linecolor_idx = Int(0)
     function_choices = List(Str)
     function_idx = Int(0)
+    linetype_dict = {'solid' : '-',
+                     'dashed' : '--',
+                     'dotted' : ':',
+                     'circles' : 'o'}
+    linecolor_dict = {'black' : 'k',
+                      'blue' : 'b',
+                      'green' : 'g',
+                      'red' : 'r'}
+
 
     def __init__(self):
         super(XYModel, self).__init__()
@@ -43,10 +52,9 @@ class XYModel(HasTraits):
         self.x = np.linspace(self.xmin, self.xmax, self.N)
         f = self.function()
         self.y = f(2 * np.pi * self.omega * self.x)
-        linecolor = self.linecolor_choices[self.linecolor_idx]
-        linestyle = self.linetype_choices[self.linetype_idx]
         self.image = ImageFromXY(self.x, self.y, dpi=self.dpi,
-                                 linecolor=linecolor, linestyle=linestyle)
+                                 linecolor=self.linecolor(),
+                                 linestyle=self.linetype())
 
     def function(self):
         fname = self.function_choices[self.function_idx]
@@ -57,12 +65,17 @@ class XYModel(HasTraits):
         if fname == 'sinc':
             return np.sinc
 
+    def linetype(self):
+        return self.linetype_dict[self.linetype_choices[self.linetype_idx]]
+
+    def linecolor(self):
+        return self.linecolor_dict[self.linecolor_choices[self.linecolor_idx]]
+
     def _linetype_choices_default(self):
-        # TODO: make these human readable instead of matplotlib standard
-        return ['-', '--', ':', 'o']
+        return self.linetype_dict.keys()
 
     def _linecolor_choices_default(self):
-        return ['k', 'b', 'g', 'r']
+        return self.linecolor_dict.keys()
 
     def _function_choices_default(self):
         return ['sin', 'cos', 'sinc']
