@@ -31,13 +31,20 @@ class XYModel(HasTraits):
     linetype_idx = Int(0)
     linecolor_choices = List(Str)
     linecolor_idx = Int(0)
+    symbol_choices = List(Str)
+    symbol_idx = Int(0)
     # choices can be any standard numpy functions
     function_choices = List(['sin', 'cos', 'sinc', 'exp'])
     function_idx = Int(0)
     linetype_dict = {'solid' : '-',
                      'dashed' : '--',
                      'dotted' : ':',
-                     'circles' : 'o'}
+                     'none' : 'None'}
+    symbol_dict = {'none' : None,
+                   'point' : '.',
+                   'pixel' : ',',
+                   'circle' : 'o',
+                   'triangle' : '^'}
     linecolor_dict = {'black' : 'k',
                       'blue' : 'b',
                       'green' : 'g',
@@ -46,16 +53,20 @@ class XYModel(HasTraits):
 
     def __init__(self):
         super(XYModel, self).__init__()
+        self.symbol_idx = self.symbol_choices.index('none')
+        self.linecolor_idx = self.linecolor_choices.index('blue')
+        self.linetype_idx = self.linetype_choices.index('solid')
         self.update_image()
 
-    @on_trait_change('N, xmax, omega, function_idx, dpi, linetype_idx, linecolor_idx')
+    @on_trait_change('N, xmax, omega, function_idx, dpi, linetype_idx, linecolor_idx, symbol_idx')
     def update_image(self):
         self.x = np.linspace(self.xmin, self.xmax, self.N)
         f = self.function()
         self.y = f(2 * np.pi * self.omega * self.x)
         self.image = ImageFromXY(self.x, self.y, dpi=self.dpi,
-                                 linecolor=self.linecolor(),
-                                 linestyle=self.linetype())
+                                 linecolor=self.linecolor,
+                                 linestyle=self.linetype,
+                                 marker=self.symbol)
 
     def function(self):
         fname = self.function_choices[self.function_idx]
@@ -64,11 +75,17 @@ class XYModel(HasTraits):
         except AttributeError:
             return None
 
+    @property
     def linetype(self):
         return self.linetype_dict[self.linetype_choices[self.linetype_idx]]
 
+    @property
     def linecolor(self):
         return self.linecolor_dict[self.linecolor_choices[self.linecolor_idx]]
+
+    @property
+    def symbol(self):
+        return self.symbol_dict[self.symbol_choices[self.symbol_idx]]
 
     def _linetype_choices_default(self):
         return self.linetype_dict.keys()
@@ -76,6 +93,8 @@ class XYModel(HasTraits):
     def _linecolor_choices_default(self):
         return self.linecolor_dict.keys()
 
+    def _symbol_choices_default(self):
+        return self.symbol_dict.keys()
 
 def main():
     with enaml.imports():
