@@ -9,12 +9,15 @@ them as images.
 
 """
 
+import copy
 import numpy as np
-from traits.api import (HasTraits, Array, Int, Float, Instance,
-                        on_trait_change, List, Str)
+from traits.api import (HasTraits, Array, Int, Float, Instance, Property,
+                        cached_property, on_trait_change, List, Str)
 import enaml
-from enaml.qt.qt_local_application import QtLocalApplication
+from enaml.application import Application
+from enaml.session import Session
 from enaml.noncomponents.image import ImageFromXY
+from enaml.qt.qt_local_server import QtLocalServer
 
 
 class XYModel(HasTraits):
@@ -96,14 +99,28 @@ class XYModel(HasTraits):
     def _symbol_choices_default(self):
         return self.symbol_dict.keys()
 
+class PlotView(Session):
+
+    def on_open(self, model, share_model):
+        with enaml.imports():
+            from xy_view import Main
+        if not share_model:
+            model = copy.copy(model)
+        return Main(model=model)
+
+
 def main():
-    with enaml.imports():
-        from xy_view import Main
     model = XYModel()
-    view = Main(model=model)
-    app = QtLocalApplication()
-    app.serve('main', view)
-    app.mainloop()
+    args = (model, True)
+    app = Application([
+        ('plot-view', 'Image plot demo view', PlotView, args)
+    ])
+    server = QtLocalServer(app)
+    client = server.local_client()
+    client.start_session('plot-view')
+    # start another client:
+    #client.start_session('plot-view')
+    server.start()
 
 if __name__ == '__main__':
     main()

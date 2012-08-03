@@ -8,7 +8,7 @@ A simple standalone demo to generate an X-Y plot as an image.
 
 """
 import numpy as np
-from enaml.widgets import Window, Container, ImageView
+from enaml.widgets import Window, ImageView
 from enaml.noncomponents.image import ImageFromXY
 
 N = 100
