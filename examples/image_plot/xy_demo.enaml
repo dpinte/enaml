@@ -17,6 +17,7 @@ y = np.sin(x)
 
 enamldef Main(Window):
     title = 'XY View'
+    initial_size = (800, 600)
     ImageView:
         id: image
         image = ImageFromXY(x, y)
