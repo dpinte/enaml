@@ -7,7 +7,7 @@
 This is a library of Enaml components deriving from the built-in Field.
 
 """
-from enaml.widgets import Field
+from enaml.widgets.api import Field
 
 # XXX This needs to be generalized and cleaned up when validators are refactored
 
