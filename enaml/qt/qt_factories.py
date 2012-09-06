@@ -51,6 +51,10 @@ def dock_pane_factory():
     from .qt_dock_pane import QtDockPane
     return QtDockPane
 
+def enable_canvas_factory():
+    from .qt_enable_canvas import QtEnableCanvas
+    return QtEnableCanvas
+
 
 def field_factory():
     from .qt_field import QtField
@@ -168,6 +172,7 @@ QT_FACTORIES = {
     'DatetimeSelector': datetime_selector_factory,
     'DockPane': dock_pane_factory,
     'Dialog': dialog_factory,
+    'EnableCanvas' : enable_canvas_factory,
     'Field': field_factory,
     'Form': form_factory,
     'GroupBox': group_box_factory,
