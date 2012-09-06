@@ -10,6 +10,7 @@ output in the form of selected item, index, and label.
 
 """
 from collections import Sequence, Iterable, Callable
+from enaml.widgets.api import RadioButton, Container
 
 
 def _radio_buttons(rgroup, to_string, items):
